@@ -1,4 +1,48 @@
-import sanitizeHtml from 'sanitize-html';
-export function sanitizeArticle(html:string) {
-  return sanitizeHtml(html,{allowedTags:['p','br','strong','em','u','s','h1','h2','h3','h4','ul','ol','li','blockquote','a','img','table','thead','tbody','tr','th','td','hr','pre','code'],allowedAttributes:{a:['href','target','rel'],img:['src','alt','title'],p:['style'],h1:['style'],h2:['style'],h3:['style'],th:['colspan','rowspan'],td:['colspan','rowspan']},allowedStyles:{'*':{'text-align':[/^(left|right|center|justify)$/]}},allowedSchemes:['https','http'],allowProtocolRelative:false,transformTags:{a:(_tag,attrs)=>({tagName:'a',attribs:{...attrs,rel:'noopener noreferrer'}})}});
+import sanitizeHtml from "sanitize-html";
+export function sanitizeArticle(html: string) {
+  return sanitizeHtml(html, {
+    allowedTags: [
+      "p",
+      "br",
+      "strong",
+      "em",
+      "u",
+      "s",
+      "h1",
+      "h2",
+      "h3",
+      "h4",
+      "ul",
+      "ol",
+      "li",
+      "blockquote",
+      "a",
+      "img",
+      "table",
+      "thead",
+      "tbody",
+      "tr",
+      "th",
+      "td",
+      "hr",
+      "pre",
+      "code",
+    ],
+    allowedAttributes: {
+      a: ["href", "target", "rel"],
+      img: ["src", "alt", "title"],
+      p: ["style"],
+      h1: ["style"],
+      h2: ["style"],
+      h3: ["style"],
+      th: ["colspan", "rowspan"],
+      td: ["colspan", "rowspan"],
+    },
+    allowedStyles: { "*": { "text-align": [/^(left|right|center|justify)$/] } },
+    allowedSchemes: ["https", "http"],
+    allowProtocolRelative: false,
+    transformTags: {
+      a: (_tag, attrs) => ({ tagName: "a", attribs: { ...attrs, rel: "noopener noreferrer" } }),
+    },
+  });
 }

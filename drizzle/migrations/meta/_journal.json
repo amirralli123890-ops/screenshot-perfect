@@ -8,6 +8,13 @@
       "when": 1794463226223,
       "tag": "0000_publication_schema",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1794464020122,
+      "tag": "0001_tighten_publication_function_access",
+      "breakpoints": true
     }
   ]
 }

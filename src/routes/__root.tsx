@@ -54,14 +54,14 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
           Something went wrong on our end. You can try refreshing or head back home.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
-           <Button
+          <Button
             onClick={() => {
               router.invalidate();
               reset();
             }}
           >
             Try again
-           </Button>
+          </Button>
           <a
             href="/"
             className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
@@ -82,11 +82,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-       { title: "New Digital World" },
-       { name: "description", content: "Discover What's Next in Technology." },
-       { name: "author", content: "Roxana Digital World" },
-       { property: "og:title", content: "New Digital World" },
-       { property: "og:description", content: "Discover What's Next in Technology." },
+      { title: "New Digital World" },
+      { name: "description", content: "Discover What's Next in Technology." },
+      { name: "author", content: "Roxana Digital World" },
+      { property: "og:title", content: "New Digital World" },
+      { property: "og:description", content: "Discover What's Next in Technology." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -95,10 +95,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
-       { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
-       { rel: "preconnect", href: "https://fonts.googleapis.com" },
-       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" },
+      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap",
+      },
     ],
   }),
   shellComponent: RootShell,

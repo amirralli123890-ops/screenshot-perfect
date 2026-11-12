@@ -1,0 +1,9 @@
+[build]
+command = "bun run build"
+publish = "dist/client"
+
+[build.environment]
+NITRO_PRESET = "netlify"
+
+# Nitro generates the function routing. Do not redirect all paths to index.html:
+# articles and server functions require SSR, not a static SPA fallback.

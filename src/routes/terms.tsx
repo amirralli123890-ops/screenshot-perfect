@@ -1,5 +1,58 @@
-import {createFileRoute} from '@tanstack/react-router';
-import {InfoPage} from '@/components/publication/info-page';
-import {pageHead} from '@/lib/publication';
-export const Route=createFileRoute('/terms')({head:()=>pageHead('Terms & Conditions','Terms for accessing New Digital World, using accounts and participating in article discussions.'),component:Page});
-function Page(){return <InfoPage title="Terms & Conditions" subtitle="The ground rules for reading and participating in New Digital World."><h2>Using this website</h2><p>By accessing New Digital World, you agree to use the website lawfully and responsibly. You must not attempt to compromise the service, bypass access restrictions, impersonate others, or submit harmful material.</p><h2>Editorial content</h2><p>Content is provided for general information. We aim for accuracy but cannot guarantee that every detail remains current. Product availability, specifications, and prices may change. Verify important purchasing details with the manufacturer or seller.</p><h2>Accounts and comments</h2><p>You are responsible for keeping your credentials secure. Public accounts allow participation in discussions only and do not provide editorial access. Comments must be relevant, respectful, and free of spam, unlawful content, and private information. Comments are published automatically; authorized editors may remove unsuitable comments.</p><h2>Intellectual property</h2><p>Original publication content belongs to its respective rights holder. Do not reproduce it without permission except where applicable law allows. By submitting a comment, you grant permission to display it in the relevant discussion.</p><h2>Third-party links</h2><p>External sites operate under their own terms and privacy policies. A link does not imply endorsement or responsibility for external content.</p><h2>Limits and changes</h2><p>The website is provided as available. To the extent permitted by law, we are not liable for losses arising from reliance on content or interruptions to service. These terms may change as the website develops.</p><h2>Contact</h2><p>For questions about these terms, email munebdeveloper034392@gmail.com.</p></InfoPage>;}
+import { createFileRoute } from "@tanstack/react-router";
+import { InfoPage } from "@/components/publication/info-page";
+import { pageHead } from "@/lib/publication";
+export const Route = createFileRoute("/terms")({
+  head: () =>
+    pageHead(
+      "Terms & Conditions",
+      "Terms for accessing New Digital World, using accounts and participating in article discussions.",
+    ),
+  component: Page,
+});
+function Page() {
+  return (
+    <InfoPage
+      title="Terms & Conditions"
+      subtitle="The ground rules for reading and participating in New Digital World."
+    >
+      <h2>Using this website</h2>
+      <p>
+        By accessing New Digital World, you agree to use the website lawfully and responsibly. You
+        must not attempt to compromise the service, bypass access restrictions, impersonate others,
+        or submit harmful material.
+      </p>
+      <h2>Editorial content</h2>
+      <p>
+        Content is provided for general information. We aim for accuracy but cannot guarantee that
+        every detail remains current. Product availability, specifications, and prices may change.
+        Verify important purchasing details with the manufacturer or seller.
+      </p>
+      <h2>Accounts and comments</h2>
+      <p>
+        You are responsible for keeping your credentials secure. Public accounts allow participation
+        in discussions only and do not provide editorial access. Comments must be relevant,
+        respectful, and free of spam, unlawful content, and private information. Comments are
+        published automatically; authorized editors may remove unsuitable comments.
+      </p>
+      <h2>Intellectual property</h2>
+      <p>
+        Original publication content belongs to its respective rights holder. Do not reproduce it
+        without permission except where applicable law allows. By submitting a comment, you grant
+        permission to display it in the relevant discussion.
+      </p>
+      <h2>Third-party links</h2>
+      <p>
+        External sites operate under their own terms and privacy policies. A link does not imply
+        endorsement or responsibility for external content.
+      </p>
+      <h2>Limits and changes</h2>
+      <p>
+        The website is provided as available. To the extent permitted by law, we are not liable for
+        losses arising from reliance on content or interruptions to service. These terms may change
+        as the website develops.
+      </p>
+      <h2>Contact</h2>
+      <p>For questions about these terms, email munebdeveloper034392@gmail.com.</p>
+    </InfoPage>
+  );
+}

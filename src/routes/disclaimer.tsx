@@ -1,5 +1,46 @@
-import {createFileRoute} from '@tanstack/react-router';
-import {InfoPage} from '@/components/publication/info-page';
-import {pageHead} from '@/lib/publication';
-export const Route=createFileRoute('/disclaimer')({head:()=>pageHead('Disclaimer','Editorial, product-pricing and advertising disclosures for New Digital World.'),component:Page});
-function Page(){return <InfoPage title="Disclaimer" subtitle="Important context for our technology coverage."><h2>General information</h2><p>New Digital World publishes technology information, news, and opinions. Content is not financial, legal, or professional advice. Readers should independently verify details before making decisions.</p><h2>Reviews and prices</h2><p>Reviews reflect the information and assessment available at publication. Product prices in USD and PKR are manually entered, independently verified figures rather than automatic currency conversions. We do not provide live exchange rates or guarantee seller pricing or availability.</p><h2>Corrections</h2><p>We welcome factual corrections. Please send the article link and supporting information to munebdeveloper034392@gmail.com.</p><h2>Advertising and affiliations</h2><p>Reserved advertising areas do not represent active advertisements or endorsements. Any future sponsored content or affiliate relationships should be disclosed where they appear. The website does not claim or guarantee Google AdSense approval.</p><h2>External content</h2><p>We are not responsible for the accuracy or practices of external websites. Reader comments represent their authors, not necessarily the publication.</p></InfoPage>;}
+import { createFileRoute } from "@tanstack/react-router";
+import { InfoPage } from "@/components/publication/info-page";
+import { pageHead } from "@/lib/publication";
+export const Route = createFileRoute("/disclaimer")({
+  head: () =>
+    pageHead(
+      "Disclaimer",
+      "Editorial, product-pricing and advertising disclosures for New Digital World.",
+    ),
+  component: Page,
+});
+function Page() {
+  return (
+    <InfoPage title="Disclaimer" subtitle="Important context for our technology coverage.">
+      <h2>General information</h2>
+      <p>
+        New Digital World publishes technology information, news, and opinions. Content is not
+        financial, legal, or professional advice. Readers should independently verify details before
+        making decisions.
+      </p>
+      <h2>Reviews and prices</h2>
+      <p>
+        Reviews reflect the information and assessment available at publication. Product prices in
+        USD and PKR are manually entered, independently verified figures rather than automatic
+        currency conversions. We do not provide live exchange rates or guarantee seller pricing or
+        availability.
+      </p>
+      <h2>Corrections</h2>
+      <p>
+        We welcome factual corrections. Please send the article link and supporting information to
+        munebdeveloper034392@gmail.com.
+      </p>
+      <h2>Advertising and affiliations</h2>
+      <p>
+        Reserved advertising areas do not represent active advertisements or endorsements. Any
+        future sponsored content or affiliate relationships should be disclosed where they appear.
+        The website does not claim or guarantee Google AdSense approval.
+      </p>
+      <h2>External content</h2>
+      <p>
+        We are not responsible for the accuracy or practices of external websites. Reader comments
+        represent their authors, not necessarily the publication.
+      </p>
+    </InfoPage>
+  );
+}

@@ -1,17 +1,266 @@
-import {Link,useLocation,useNavigate,useRouter} from '@tanstack/react-router';
-import {useQueryClient,useQuery} from '@tanstack/react-query';
-import {useEffect,useState,type ReactNode} from 'react';
-import {Search,Sun,Moon,ArrowUp,ArrowUpRight,Home,LogOut,User,Instagram,Globe,Smartphone,Headphones,Cpu,Star,Newspaper,Laptop} from 'lucide-react';
-import {Button} from '@/components/ui/button';
-import {supabase} from '@/integrations/supabase/client';
-import {categoryInfo,categoryPath} from '@/lib/publication';
-import {getSiteSettings} from '@/lib/publication.functions';
-export function CategoryIcon({slug,className}:{slug:string,className?:string}){const Icon=slug==='mobile-phones'?Smartphone:slug==='gadgets-accessories'?Headphones:slug==='ai-technology'?Cpu:slug==='reviews-comparisons'?Star:slug==='technology-news'?Newspaper:Laptop;return <Icon className={className}/>;}
-export function Wordmark(){return <Link to="/" className="wordmark" aria-label="New Digital World home"><div className="logo-mark">N<span className="sr-only">D</span></div><div><div className="wordmark-name">NEW <span>DIGITAL</span> WORLD<span className="text-primary">.</span></div><div className="wordmark-tagline">DISCOVER WHAT'S NEXT IN TECHNOLOGY</div></div></Link>;}
-export function Shell({children}:{children:ReactNode}){
- const location=useLocation();const navigate=useNavigate();const router=useRouter();const qc=useQueryClient();const [light,setLight]=useState(false);const [query,setQuery]=useState('');const [user,setUser]=useState(false);const [date,setDate]=useState('');const settings=useQuery({queryKey:['site-settings'],queryFn:()=>getSiteSettings(),staleTime:60000});
- useEffect(()=>{setLight(localStorage.getItem('ndw-theme')==='light');setDate(new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'}));supabase.auth.getUser().then(({data})=>setUser(Boolean(data.user)));},[location.pathname]);
- useEffect(()=>{document.documentElement.classList.toggle('light',light);},[light]);
- async function logout(){await qc.cancelQueries();qc.clear();await supabase.auth.signOut();setUser(false);await router.invalidate();await navigate({to:'/auth',replace:true});}
- return <><header><div className="top-strip"><div className="site-container flex h-full items-center justify-between"><span>{date||'Independent technology publication'}</span><div className="flex items-center gap-5"><span className="hide-mobile">Technology. Perspective. Possibility.</span><Link to="/about">About us</Link><Link to="/contact">Contact</Link></div></div></div><div className="site-container main-header"><Wordmark/><div className="flex items-center gap-4"><form className="search-box" onSubmit={e=>{e.preventDefault();navigate({to:'/search',search:{q:query,page:1}});}}><Search/><input aria-label="Search technology" placeholder="Search the world of technology..." value={query} onChange={e=>setQuery(e.target.value)}/><span className="key-hint">↵</span></form><div className="flex items-center gap-1 border-l border-border pl-3"><Button variant="ghost" size="icon" title={light?'Switch to dark mode':'Switch to light mode'} aria-label={light?'Switch to dark mode':'Switch to light mode'} onClick={()=>{localStorage.setItem('ndw-theme',light?'dark':'light');setLight(!light);}}>{light?<Moon/>:<Sun/>}</Button>{user?<><Button variant="ghost" size="icon" asChild title="Your account"><Link to="/account"><User/></Link></Button><Button variant="ghost" size="icon" title="Sign out" aria-label="Sign out" onClick={logout}><LogOut/></Button></>:<Button variant="ghost" size="icon" asChild title="Sign in"><Link to="/auth"><User/></Link></Button>}</div></div></div><div className="nav-band"><nav className="site-container desktop-nav" aria-label="Main navigation"><Link to="/" className={location.pathname==='/'?'active':''}><Home className="size-3.5"/>Home</Link>{categoryInfo.map(c=><Link key={c.slug} to={categoryPath(c.slug)} search={{page:1}} className={location.pathname===`/${c.slug}`?'active':''}>{c.name}</Link>)}<div className="edition-label"><span className="status-dot"/>THE NEXT CHAPTER IN TECH</div></nav></div></header><main>{children}</main><footer className="footer"><div className="site-container"><div className="footer-grid"><div><Wordmark/><p className="footer-description">A fresh perspective on the ever-evolving digital world. Technology news, thoughtful reviews, and the innovations that matter.</p>{settings.data?.instagram_url&&<a className="mt-4 inline-flex text-muted-foreground" href={settings.data.instagram_url} target="_blank" rel="noreferrer" aria-label="Instagram"><Instagram className="size-4"/></a>}</div><div><h3 className="footer-title">Explore technology</h3><div className="footer-links">{categoryInfo.slice(0,3).map(c=><Link key={c.slug} to={categoryPath(c.slug)} search={{page:1}}>{c.name}</Link>)}</div></div><div><h3 className="footer-title">More to discover</h3><div className="footer-links">{categoryInfo.slice(3).map(c=><Link key={c.slug} to={categoryPath(c.slug)} search={{page:1}}>{c.name}</Link>)}<Link to="/about">About us</Link><Link to="/contact">Contact us</Link></div></div><div><h3 className="footer-title">The fine print</h3><div className="footer-links"><Link to="/privacy">Privacy Policy</Link><Link to="/terms">Terms & Conditions</Link><Link to="/disclaimer">Disclaimer</Link><Link to="/admin">Editorial login <ArrowUpRight className="inline size-3"/></Link></div></div></div><div className="footer-bottom"><span>© {new Date().getFullYear()} New Digital World. All rights reserved.</span><span className="flex items-center gap-2"><Globe className="size-3"/>English (US) · A worldwide perspective</span><span>Discover what's next.</span></div></div></footer><Button className="back-top" size="icon" variant="secondary" aria-label="Back to top" title="Back to top" onClick={()=>window.scrollTo({top:0,behavior:'smooth'})}><ArrowUp/></Button></>;
+import { Link, useLocation, useNavigate, useRouter } from "@tanstack/react-router";
+import { useQueryClient, useQuery } from "@tanstack/react-query";
+import { useEffect, useState, type ReactNode } from "react";
+import {
+  Search,
+  Sun,
+  Moon,
+  ArrowUp,
+  ArrowUpRight,
+  Home,
+  LogOut,
+  User,
+  Instagram,
+  Globe,
+  Smartphone,
+  Headphones,
+  Cpu,
+  Star,
+  Newspaper,
+  Laptop,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
+import { categoryInfo, categoryPath } from "@/lib/publication";
+import { getSiteSettings } from "@/lib/publication.functions";
+export function CategoryIcon({ slug, className }: { slug: string; className?: string }) {
+  const Icon =
+    slug === "mobile-phones"
+      ? Smartphone
+      : slug === "gadgets-accessories"
+        ? Headphones
+        : slug === "ai-technology"
+          ? Cpu
+          : slug === "reviews-comparisons"
+            ? Star
+            : slug === "technology-news"
+              ? Newspaper
+              : Laptop;
+  return <Icon className={className} />;
+}
+export function Wordmark() {
+  return (
+    <Link to="/" className="wordmark" aria-label="New Digital World home">
+      <div className="logo-mark">
+        N<span className="sr-only">D</span>
+      </div>
+      <div>
+        <div className="wordmark-name">
+          NEW <span>DIGITAL</span> WORLD<span className="text-primary">.</span>
+        </div>
+        <div className="wordmark-tagline">DISCOVER WHAT'S NEXT IN TECHNOLOGY</div>
+      </div>
+    </Link>
+  );
+}
+export function Shell({ children }: { children: ReactNode }) {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const router = useRouter();
+  const qc = useQueryClient();
+  const [light, setLight] = useState(false);
+  const [query, setQuery] = useState("");
+  const [user, setUser] = useState(false);
+  const [date, setDate] = useState("");
+  const settings = useQuery({
+    queryKey: ["site-settings"],
+    queryFn: () => getSiteSettings(),
+    staleTime: 60000,
+  });
+  useEffect(() => {
+    setLight(localStorage.getItem("ndw-theme") === "light");
+    setDate(
+      new Date().toLocaleDateString("en-US", {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      }),
+    );
+    supabase.auth.getUser().then(({ data }) => setUser(Boolean(data.user)));
+  }, [location.pathname]);
+  useEffect(() => {
+    document.documentElement.classList.toggle("light", light);
+  }, [light]);
+  async function logout() {
+    await qc.cancelQueries();
+    qc.clear();
+    await supabase.auth.signOut();
+    setUser(false);
+    await router.invalidate();
+    await navigate({ to: "/auth", replace: true });
+  }
+  return (
+    <>
+      <header>
+        <div className="top-strip">
+          <div className="site-container flex h-full items-center justify-between">
+            <span>{date || "Independent technology publication"}</span>
+            <div className="flex items-center gap-5">
+              <span className="hide-mobile">Technology. Perspective. Possibility.</span>
+              <Link to="/about">About us</Link>
+              <Link to="/contact">Contact</Link>
+            </div>
+          </div>
+        </div>
+        <div className="site-container main-header">
+          <Wordmark />
+          <div className="flex items-center gap-4">
+            <form
+              className="search-box"
+              onSubmit={(e) => {
+                e.preventDefault();
+                navigate({ to: "/search", search: { q: query, page: 1 } });
+              }}
+            >
+              <Search />
+              <input
+                aria-label="Search technology"
+                placeholder="Search the world of technology..."
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+              />
+              <span className="key-hint">↵</span>
+            </form>
+            <div className="flex items-center gap-1 border-l border-border pl-3">
+              <Button
+                variant="ghost"
+                size="icon"
+                title={light ? "Switch to dark mode" : "Switch to light mode"}
+                aria-label={light ? "Switch to dark mode" : "Switch to light mode"}
+                onClick={() => {
+                  localStorage.setItem("ndw-theme", light ? "dark" : "light");
+                  setLight(!light);
+                }}
+              >
+                {light ? <Moon /> : <Sun />}
+              </Button>
+              {user ? (
+                <>
+                  <Button variant="ghost" size="icon" asChild title="Your account">
+                    <Link to="/account">
+                      <User />
+                    </Link>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    title="Sign out"
+                    aria-label="Sign out"
+                    onClick={logout}
+                  >
+                    <LogOut />
+                  </Button>
+                </>
+              ) : (
+                <Button variant="ghost" size="icon" asChild title="Sign in">
+                  <Link to="/auth">
+                    <User />
+                  </Link>
+                </Button>
+              )}
+            </div>
+          </div>
+        </div>
+        <div className="nav-band">
+          <nav className="site-container desktop-nav" aria-label="Main navigation">
+            <Link to="/" className={location.pathname === "/" ? "active" : ""}>
+              <Home className="size-3.5" />
+              Home
+            </Link>
+            {categoryInfo.map((c) => (
+              <Link
+                key={c.slug}
+                to={categoryPath(c.slug)}
+                search={{ page: 1 }}
+                className={location.pathname === `/${c.slug}` ? "active" : ""}
+              >
+                {c.name}
+              </Link>
+            ))}
+            <div className="edition-label">
+              <span className="status-dot" />
+              THE NEXT CHAPTER IN TECH
+            </div>
+          </nav>
+        </div>
+      </header>
+      <main>{children}</main>
+      <footer className="footer">
+        <div className="site-container">
+          <div className="footer-grid">
+            <div>
+              <Wordmark />
+              <p className="footer-description">
+                A fresh perspective on the ever-evolving digital world. Technology news, thoughtful
+                reviews, and the innovations that matter.
+              </p>
+              {settings.data?.instagram_url && (
+                <a
+                  className="mt-4 inline-flex text-muted-foreground"
+                  href={settings.data.instagram_url}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Instagram"
+                >
+                  <Instagram className="size-4" />
+                </a>
+              )}
+            </div>
+            <div>
+              <h3 className="footer-title">Explore technology</h3>
+              <div className="footer-links">
+                {categoryInfo.slice(0, 3).map((c) => (
+                  <Link key={c.slug} to={categoryPath(c.slug)} search={{ page: 1 }}>
+                    {c.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h3 className="footer-title">More to discover</h3>
+              <div className="footer-links">
+                {categoryInfo.slice(3).map((c) => (
+                  <Link key={c.slug} to={categoryPath(c.slug)} search={{ page: 1 }}>
+                    {c.name}
+                  </Link>
+                ))}
+                <Link to="/about">About us</Link>
+                <Link to="/contact">Contact us</Link>
+              </div>
+            </div>
+            <div>
+              <h3 className="footer-title">The fine print</h3>
+              <div className="footer-links">
+                <Link to="/privacy">Privacy Policy</Link>
+                <Link to="/terms">Terms & Conditions</Link>
+                <Link to="/disclaimer">Disclaimer</Link>
+                <Link to="/admin">
+                  Editorial login <ArrowUpRight className="inline size-3" />
+                </Link>
+              </div>
+            </div>
+          </div>
+          <div className="footer-bottom">
+            <span>© {new Date().getFullYear()} New Digital World. All rights reserved.</span>
+            <span className="flex items-center gap-2">
+              <Globe className="size-3" />
+              English (US) · A worldwide perspective
+            </span>
+            <span>Discover what's next.</span>
+          </div>
+        </div>
+      </footer>
+      <Button
+        className="back-top"
+        size="icon"
+        variant="secondary"
+        aria-label="Back to top"
+        title="Back to top"
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      >
+        <ArrowUp />
+      </Button>
+    </>
+  );
 }

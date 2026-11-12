@@ -1,4 +1,60 @@
-import {createFileRoute} from '@tanstack/react-router';
-import {publicClient} from '@/lib/public-client.server';
-function escapeXml(s:string){return s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&apos;');}
-export const Route=createFileRoute('/sitemap.xml')({server:{handlers:{GET:async()=>{const db=publicClient();const settings=await db.from('site_settings').select('canonical_url').eq('id',1).maybeSingle();const origin=settings.data?.canonical_url;if(!origin)return new Response('Set the published website address in website settings to enable the sitemap.',{status:503});const cats=await db.from('categories').select('slug');let all:{slug:string,updated_at:string}[]=[];for(let offset=0;offset<100000;offset+=1000){const rows=await db.from('articles').select('slug,updated_at').eq('status','published').order('id').range(offset,offset+999);if(rows.error)return new Response('Sitemap temporarily unavailable',{status:503});all.push(...rows.data);if(rows.data.length<1000)break;}const base=origin.replace(/\/$/,'');const paths=['','/about','/contact','/privacy','/terms','/disclaimer',...(cats.data??[]).map(c=>`/${c.slug}`)];const xml=`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${paths.map(p=>`<url><loc>${escapeXml(base+p)}</loc></url>`).join('')}${all.map(a=>`<url><loc>${escapeXml(base+'/article/'+a.slug)}</loc><lastmod>${escapeXml(a.updated_at)}</lastmod></url>`).join('')}</urlset>`;return new Response(xml,{headers:{'Content-Type':'application/xml; charset=utf-8','Cache-Control':'public,max-age=300'}});}}}});
+import { createFileRoute } from "@tanstack/react-router";
+import { publicClient } from "@/lib/public-client.server";
+function escapeXml(s: string) {
+  return s
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&apos;");
+}
+export const Route = createFileRoute("/sitemap.xml")({
+  server: {
+    handlers: {
+      GET: async () => {
+        const db = publicClient();
+        const settings = await db
+          .from("site_settings")
+          .select("canonical_url")
+          .eq("id", 1)
+          .maybeSingle();
+        const origin = settings.data?.canonical_url;
+        if (!origin)
+          return new Response(
+            "Set the published website address in website settings to enable the sitemap.",
+            { status: 503 },
+          );
+        const cats = await db.from("categories").select("slug");
+        let all: { slug: string; updated_at: string }[] = [];
+        for (let offset = 0; offset < 100000; offset += 1000) {
+          const rows = await db
+            .from("articles")
+            .select("slug,updated_at")
+            .eq("status", "published")
+            .order("id")
+            .range(offset, offset + 999);
+          if (rows.error) return new Response("Sitemap temporarily unavailable", { status: 503 });
+          all.push(...rows.data);
+          if (rows.data.length < 1000) break;
+        }
+        const base = origin.replace(/\/$/, "");
+        const paths = [
+          "",
+          "/about",
+          "/contact",
+          "/privacy",
+          "/terms",
+          "/disclaimer",
+          ...(cats.data ?? []).map((c) => `/${c.slug}`),
+        ];
+        const xml = `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${paths.map((p) => `<url><loc>${escapeXml(base + p)}</loc></url>`).join("")}${all.map((a) => `<url><loc>${escapeXml(base + "/article/" + a.slug)}</loc><lastmod>${escapeXml(a.updated_at)}</lastmod></url>`).join("")}</urlset>`;
+        return new Response(xml, {
+          headers: {
+            "Content-Type": "application/xml; charset=utf-8",
+            "Cache-Control": "public,max-age=300",
+          },
+        });
+      },
+    },
+  },
+});

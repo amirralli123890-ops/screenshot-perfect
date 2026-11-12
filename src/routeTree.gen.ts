@@ -29,6 +29,7 @@ import { Route as TermsRouteImport } from './routes/terms'
 import { Route as AuthenticatedAccountRouteImport } from './routes/_authenticated/account'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as ArticleSlugRouteImport } from './routes/article.$slug'
+import { Route as CategorySlugRouteImport } from './routes/category.$slug'
 import { Route as ApiPublicImageRouteImport } from './routes/api/public/image'
 
 const IndexRoute = IndexRouteImport.update({
@@ -130,6 +131,11 @@ const ArticleSlugRoute = ArticleSlugRouteImport.update({
   path: '/article/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CategorySlugRoute = CategorySlugRouteImport.update({
+  id: '/category/$slug',
+  path: '/category/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicImageRoute = ApiPublicImageRouteImport.update({
   id: '/api/public/image',
   path: '/api/public/image',
@@ -156,6 +162,7 @@ export interface FileRoutesByFullPath {
   '/account': typeof AuthenticatedAccountRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/article/$slug': typeof ArticleSlugRoute
+  '/category/$slug': typeof CategorySlugRoute
   '/api/public/image': typeof ApiPublicImageRoute
 }
 export interface FileRoutesByTo {
@@ -178,6 +185,7 @@ export interface FileRoutesByTo {
   '/account': typeof AuthenticatedAccountRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/article/$slug': typeof ArticleSlugRoute
+  '/category/$slug': typeof CategorySlugRoute
   '/api/public/image': typeof ApiPublicImageRoute
 }
 export interface FileRoutesById {
@@ -202,6 +210,7 @@ export interface FileRoutesById {
   '/_authenticated/account': typeof AuthenticatedAccountRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/article/$slug': typeof ArticleSlugRoute
+  '/category/$slug': typeof CategorySlugRoute
   '/api/public/image': typeof ApiPublicImageRoute
 }
 export interface FileRouteTypes {
@@ -226,6 +235,7 @@ export interface FileRouteTypes {
     | '/account'
     | '/admin'
     | '/article/$slug'
+    | '/category/$slug'
     | '/api/public/image'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -248,6 +258,7 @@ export interface FileRouteTypes {
     | '/account'
     | '/admin'
     | '/article/$slug'
+    | '/category/$slug'
     | '/api/public/image'
   id:
     | '__root__'
@@ -271,6 +282,7 @@ export interface FileRouteTypes {
     | '/_authenticated/account'
     | '/_authenticated/admin'
     | '/article/$slug'
+    | '/category/$slug'
     | '/api/public/image'
   fileRoutesById: FileRoutesById
 }
@@ -293,6 +305,7 @@ export interface RootRouteChildren {
   TechnologyNewsRoute: typeof TechnologyNewsRoute
   TermsRoute: typeof TermsRoute
   ArticleSlugRoute: typeof ArticleSlugRoute
+  CategorySlugRoute: typeof CategorySlugRoute
   ApiPublicImageRoute: typeof ApiPublicImageRoute
 }
 
@@ -438,6 +451,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ArticleSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/category/$slug': {
+      id: '/category/$slug'
+      path: '/category/$slug'
+      fullPath: '/category/$slug'
+      preLoaderRoute: typeof CategorySlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/image': {
       id: '/api/public/image'
       path: '/api/public/image'
@@ -480,6 +500,7 @@ const rootRouteChildren: RootRouteChildren = {
   TechnologyNewsRoute: TechnologyNewsRoute,
   TermsRoute: TermsRoute,
   ArticleSlugRoute: ArticleSlugRoute,
+  CategorySlugRoute: CategorySlugRoute,
   ApiPublicImageRoute: ApiPublicImageRoute,
 }
 export const routeTree = rootRouteImport
