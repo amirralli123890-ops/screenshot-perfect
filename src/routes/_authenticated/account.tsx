@@ -1,0 +1,8 @@
+import {createFileRoute,Link} from '@tanstack/react-router';
+import {useEffect,useState} from 'react';
+import {supabase} from '@/integrations/supabase/client';
+import {Shell} from '@/components/publication/shell';
+import {Button} from '@/components/ui/button';
+import {pageHead} from '@/lib/publication';
+export const Route=createFileRoute('/_authenticated/account')({head:()=>({...pageHead('Your Account','Manage your New Digital World reader profile.'),meta:[...pageHead('Your Account','Your reader account.').meta,{name:'robots',content:'noindex,nofollow'}]}),component:Page});
+function Page(){const {user}=Route.useRouteContext();const [name,setName]=useState('');const [staff,setStaff]=useState(false);const [message,setMessage]=useState('');useEffect(()=>{supabase.from('profiles').select('display_name').eq('id',user.id).maybeSingle().then(({data})=>setName(data?.display_name??''));supabase.from('user_roles').select('id').eq('user_id',user.id).then(({data})=>setStaff(Boolean(data?.length)));},[user.id]);return <Shell><div className="site-container"><div className="auth-panel"><h1>Your account.</h1><p className="break-all">{user.email}</p><form className="form-grid" onSubmit={async e=>{e.preventDefault();const r=await supabase.from('profiles').update({display_name:name.trim()}).eq('id',user.id);setMessage(r.error?'Could not save your profile.':'Profile saved.');}}><label>Display name<input required maxLength={100} value={name} onChange={e=>setName(e.target.value)}/></label><Button>Save profile</Button>{message&&<p role="status" className="text-xs text-muted-foreground">{message}</p>}</form>{staff&&<Button className="mt-5 w-full" variant="outline" asChild><Link to="/admin">Open editorial dashboard</Link></Button>}</div></div></Shell>;}

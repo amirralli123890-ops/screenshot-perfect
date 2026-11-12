@@ -10,33 +10,290 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AiTechnologyRouteImport } from './routes/ai-technology'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as ComputersLaptopsRouteImport } from './routes/computers-laptops'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as DisclaimerRouteImport } from './routes/disclaimer'
+import { Route as GadgetsAccessoriesRouteImport } from './routes/gadgets-accessories'
+import { Route as MobilePhonesRouteImport } from './routes/mobile-phones'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as ReviewsComparisonsRouteImport } from './routes/reviews-comparisons'
+import { Route as SearchRouteImport } from './routes/search'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as TechnologyNewsRouteImport } from './routes/technology-news'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as AuthenticatedAccountRouteImport } from './routes/_authenticated/account'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as ArticleSlugRouteImport } from './routes/article.$slug'
+import { Route as ApiPublicImageRouteImport } from './routes/api/public/image'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AiTechnologyRoute = AiTechnologyRouteImport.update({
+  id: '/ai-technology',
+  path: '/ai-technology',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ComputersLaptopsRoute = ComputersLaptopsRouteImport.update({
+  id: '/computers-laptops',
+  path: '/computers-laptops',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DisclaimerRoute = DisclaimerRouteImport.update({
+  id: '/disclaimer',
+  path: '/disclaimer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GadgetsAccessoriesRoute = GadgetsAccessoriesRouteImport.update({
+  id: '/gadgets-accessories',
+  path: '/gadgets-accessories',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MobilePhonesRoute = MobilePhonesRouteImport.update({
+  id: '/mobile-phones',
+  path: '/mobile-phones',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReviewsComparisonsRoute = ReviewsComparisonsRouteImport.update({
+  id: '/reviews-comparisons',
+  path: '/reviews-comparisons',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TechnologyNewsRoute = TechnologyNewsRouteImport.update({
+  id: '/technology-news',
+  path: '/technology-news',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAccountRoute = AuthenticatedAccountRouteImport.update({
+  id: '/account',
+  path: '/account',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const ArticleSlugRoute = ArticleSlugRouteImport.update({
+  id: '/article/$slug',
+  path: '/article/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicImageRoute = ApiPublicImageRouteImport.update({
+  id: '/api/public/image',
+  path: '/api/public/image',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/ai-technology': typeof AiTechnologyRoute
+  '/auth': typeof AuthRoute
+  '/computers-laptops': typeof ComputersLaptopsRoute
+  '/contact': typeof ContactRoute
+  '/disclaimer': typeof DisclaimerRoute
+  '/gadgets-accessories': typeof GadgetsAccessoriesRoute
+  '/mobile-phones': typeof MobilePhonesRoute
+  '/privacy': typeof PrivacyRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/reviews-comparisons': typeof ReviewsComparisonsRoute
+  '/search': typeof SearchRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/technology-news': typeof TechnologyNewsRoute
+  '/terms': typeof TermsRoute
+  '/account': typeof AuthenticatedAccountRoute
+  '/admin': typeof AuthenticatedAdminRoute
+  '/article/$slug': typeof ArticleSlugRoute
+  '/api/public/image': typeof ApiPublicImageRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/ai-technology': typeof AiTechnologyRoute
+  '/auth': typeof AuthRoute
+  '/computers-laptops': typeof ComputersLaptopsRoute
+  '/contact': typeof ContactRoute
+  '/disclaimer': typeof DisclaimerRoute
+  '/gadgets-accessories': typeof GadgetsAccessoriesRoute
+  '/mobile-phones': typeof MobilePhonesRoute
+  '/privacy': typeof PrivacyRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/reviews-comparisons': typeof ReviewsComparisonsRoute
+  '/search': typeof SearchRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/technology-news': typeof TechnologyNewsRoute
+  '/terms': typeof TermsRoute
+  '/account': typeof AuthenticatedAccountRoute
+  '/admin': typeof AuthenticatedAdminRoute
+  '/article/$slug': typeof ArticleSlugRoute
+  '/api/public/image': typeof ApiPublicImageRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/about': typeof AboutRoute
+  '/ai-technology': typeof AiTechnologyRoute
+  '/auth': typeof AuthRoute
+  '/computers-laptops': typeof ComputersLaptopsRoute
+  '/contact': typeof ContactRoute
+  '/disclaimer': typeof DisclaimerRoute
+  '/gadgets-accessories': typeof GadgetsAccessoriesRoute
+  '/mobile-phones': typeof MobilePhonesRoute
+  '/privacy': typeof PrivacyRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/reviews-comparisons': typeof ReviewsComparisonsRoute
+  '/search': typeof SearchRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/technology-news': typeof TechnologyNewsRoute
+  '/terms': typeof TermsRoute
+  '/_authenticated/account': typeof AuthenticatedAccountRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/article/$slug': typeof ArticleSlugRoute
+  '/api/public/image': typeof ApiPublicImageRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/ai-technology'
+    | '/auth'
+    | '/computers-laptops'
+    | '/contact'
+    | '/disclaimer'
+    | '/gadgets-accessories'
+    | '/mobile-phones'
+    | '/privacy'
+    | '/reset-password'
+    | '/reviews-comparisons'
+    | '/search'
+    | '/sitemap.xml'
+    | '/technology-news'
+    | '/terms'
+    | '/account'
+    | '/admin'
+    | '/article/$slug'
+    | '/api/public/image'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/ai-technology'
+    | '/auth'
+    | '/computers-laptops'
+    | '/contact'
+    | '/disclaimer'
+    | '/gadgets-accessories'
+    | '/mobile-phones'
+    | '/privacy'
+    | '/reset-password'
+    | '/reviews-comparisons'
+    | '/search'
+    | '/sitemap.xml'
+    | '/technology-news'
+    | '/terms'
+    | '/account'
+    | '/admin'
+    | '/article/$slug'
+    | '/api/public/image'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/about'
+    | '/ai-technology'
+    | '/auth'
+    | '/computers-laptops'
+    | '/contact'
+    | '/disclaimer'
+    | '/gadgets-accessories'
+    | '/mobile-phones'
+    | '/privacy'
+    | '/reset-password'
+    | '/reviews-comparisons'
+    | '/search'
+    | '/sitemap.xml'
+    | '/technology-news'
+    | '/terms'
+    | '/_authenticated/account'
+    | '/_authenticated/admin'
+    | '/article/$slug'
+    | '/api/public/image'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AboutRoute: typeof AboutRoute
+  AiTechnologyRoute: typeof AiTechnologyRoute
+  AuthRoute: typeof AuthRoute
+  ComputersLaptopsRoute: typeof ComputersLaptopsRoute
+  ContactRoute: typeof ContactRoute
+  DisclaimerRoute: typeof DisclaimerRoute
+  GadgetsAccessoriesRoute: typeof GadgetsAccessoriesRoute
+  MobilePhonesRoute: typeof MobilePhonesRoute
+  PrivacyRoute: typeof PrivacyRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
+  ReviewsComparisonsRoute: typeof ReviewsComparisonsRoute
+  SearchRoute: typeof SearchRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  TechnologyNewsRoute: typeof TechnologyNewsRoute
+  TermsRoute: typeof TermsRoute
+  ArticleSlugRoute: typeof ArticleSlugRoute
+  ApiPublicImageRoute: typeof ApiPublicImageRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +305,182 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ai-technology': {
+      id: '/ai-technology'
+      path: '/ai-technology'
+      fullPath: '/ai-technology'
+      preLoaderRoute: typeof AiTechnologyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/computers-laptops': {
+      id: '/computers-laptops'
+      path: '/computers-laptops'
+      fullPath: '/computers-laptops'
+      preLoaderRoute: typeof ComputersLaptopsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/disclaimer': {
+      id: '/disclaimer'
+      path: '/disclaimer'
+      fullPath: '/disclaimer'
+      preLoaderRoute: typeof DisclaimerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gadgets-accessories': {
+      id: '/gadgets-accessories'
+      path: '/gadgets-accessories'
+      fullPath: '/gadgets-accessories'
+      preLoaderRoute: typeof GadgetsAccessoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mobile-phones': {
+      id: '/mobile-phones'
+      path: '/mobile-phones'
+      fullPath: '/mobile-phones'
+      preLoaderRoute: typeof MobilePhonesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reviews-comparisons': {
+      id: '/reviews-comparisons'
+      path: '/reviews-comparisons'
+      fullPath: '/reviews-comparisons'
+      preLoaderRoute: typeof ReviewsComparisonsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/technology-news': {
+      id: '/technology-news'
+      path: '/technology-news'
+      fullPath: '/technology-news'
+      preLoaderRoute: typeof TechnologyNewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/account': {
+      id: '/_authenticated/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AuthenticatedAccountRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/article/$slug': {
+      id: '/article/$slug'
+      path: '/article/$slug'
+      fullPath: '/article/$slug'
+      preLoaderRoute: typeof ArticleSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/image': {
+      id: '/api/public/image'
+      path: '/api/public/image'
+      fullPath: '/api/public/image'
+      preLoaderRoute: typeof ApiPublicImageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAccountRoute: typeof AuthenticatedAccountRoute
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAccountRoute: AuthenticatedAccountRoute,
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AboutRoute: AboutRoute,
+  AiTechnologyRoute: AiTechnologyRoute,
+  AuthRoute: AuthRoute,
+  ComputersLaptopsRoute: ComputersLaptopsRoute,
+  ContactRoute: ContactRoute,
+  DisclaimerRoute: DisclaimerRoute,
+  GadgetsAccessoriesRoute: GadgetsAccessoriesRoute,
+  MobilePhonesRoute: MobilePhonesRoute,
+  PrivacyRoute: PrivacyRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
+  ReviewsComparisonsRoute: ReviewsComparisonsRoute,
+  SearchRoute: SearchRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
+  TechnologyNewsRoute: TechnologyNewsRoute,
+  TermsRoute: TermsRoute,
+  ArticleSlugRoute: ArticleSlugRoute,
+  ApiPublicImageRoute: ApiPublicImageRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -28,3 +28,11 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Application rules
+- Keep public publication routes server-rendered and private editorial tools under the authenticated layout; server functions and RLS enforce permissions independently.
+- Use the generated Cloud clients and separate role records; initial administrator assignment requires the designated verified email, never user metadata.
+- Keep comment emails in a private table and serve private article images only after verifying a published article references the image.
+- Store rich text as server-sanitized HTML through TipTap; allow only safe formatting, images, and links.
+- Use validated server functions for submissions with database-backed atomic spam limits, because workers have no durable local state.
+- Keep the managed Vite bootstrap and use an environment-selected Nitro deployment target for external hosting, because this is an SSR application, not a static SPA.

@@ -1,23 +1,12 @@
-import { createFileRoute } from "@tanstack/react-router";
-
-// The home route ships no og:image, so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
-export const Route = createFileRoute("/")({
-  component: Index,
-});
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
+import {createFileRoute,Link,useNavigate} from '@tanstack/react-router';
+import {useSuspenseQuery} from '@tanstack/react-query';
+import {useState} from 'react';
+import {ArrowRight,Flame,TrendingUp,ChevronRight,Layers} from 'lucide-react';
+import {Button} from '@/components/ui/button';
+import hero from '@/assets/technology-world.jpg';
+import {Shell,CategoryIcon} from '@/components/publication/shell';
+import {EmptyState,SectionHeading,ArticleList,Advertisement,Pagination} from '@/components/publication/feed';
+import {feedOptions} from '@/lib/feed-query';
+import {categoryInfo,categoryPath,pageHead,imageSource} from '@/lib/publication';
+export const Route=createFileRoute('/')({validateSearch:(s:Record<string,unknown>):{page?:number}=>({page:Math.max(1,Number(s['page'])||1)}),loaderDeps:({search})=>({page:search.page??1}),loader:({context,deps})=>context.queryClient.ensureQueryData(feedOptions(undefined,deps.page)),head:()=>pageHead('New Digital World — Discover What’s Next','Explore original technology news, smartphone coverage, gadget reviews, AI developments, and computing insights at New Digital World.'),component:Index});
+function Index(){const {page=1}=Route.useSearch();const {data}=useSuspenseQuery(feedOptions(undefined,page));const navigate=useNavigate();const [filter,setFilter]=useState('all');const featured=data.highlights.find(a=>a.featured);const filtered=filter==='all'?data.articles:data.articles.filter(a=>a.category_id===data.categories.find(c=>c.slug===filter)?.id);return <Shell><div className="site-container"><section className="hero"><img src={featured?.featured_image?imageSource(featured.featured_image):hero} alt={featured?.featured_image?featured.image_alt:'A next-generation smartphone, laptop, and headphones in an electric-blue studio'} width={1920} height={1024} fetchPriority="high"/><div className="hero-copy"><div className="eyebrow"><span className="h-1 w-4 bg-primary"/>{featured?'THE EDITOR’S PICK':'WELCOME TO NEW DIGITAL WORLD'}</div><h1>{featured?featured.title:<>Discover what's<br/>next in <span>technology.</span></>}</h1><p className="hero-description">{featured?featured.description:'Fresh perspectives. Smarter decisions. Explore the ideas, devices, and innovations shaping your digital world.'}</p><Button className="hero-btn" asChild>{featured?<Link to="/article/$slug" params={{slug:featured.slug}}>Read the story <ArrowRight/></Link>:<Link to="/technology-news" search={{page:1}}>Explore technology <ArrowRight/></Link>}</Button></div><div className="hero-bottom">THE FUTURE IS JUST GETTING STARTED.</div></section><nav className="category-strip" aria-label="Explore categories">{categoryInfo.map(c=><Link className="category-tile" key={c.slug} to={categoryPath(c.slug)} search={{page:1}}><CategoryIcon slug={c.slug}/><div><div className="tile-name">{c.name}</div><div className="tile-meta">Explore the latest <ChevronRight className="inline size-2.5"/></div></div></Link>)}</nav><div className="home-columns"><div><SectionHeading title="Latest Technology News" slug="technology-news"/><div className="filter-tabs" role="tablist" aria-label="Filter latest news">{[{slug:'all',short:'All stories'},...categoryInfo].map(c=><Button key={c.slug} role="tab" aria-selected={filter===c.slug} variant="ghost" onClick={()=>setFilter(c.slug)}>{c.short}</Button>)}</div>{filtered.length?<div className="mt-6"><ArticleList articles={filtered} categories={data.categories}/></div>:<EmptyState/>}<Pagination page={page} count={data.count} onChange={n=>navigate({to:'/',search:{page:n}})}/><Advertisement settings={data.settings}/><section className="coverage-section"><SectionHeading title="Latest Smartphones" slug="mobile-phones"/>{data.articles.some(a=>a.category_id===data.categories.find(c=>c.slug==='mobile-phones')?.id)?<div className="mt-6"><ArticleList articles={data.articles.filter(a=>a.category_id===data.categories.find(c=>c.slug==='mobile-phones')?.id).slice(0,3)} categories={data.categories}/></div>:<EmptyState compact title="The next generation is coming." description="Smartphone launches, first looks, and the details that make a difference."/>}</section><div className="coverage-grid">{[{title:'Gadgets & Accessories',slug:'gadgets-accessories'},{title:'AI & Technology',slug:'ai-technology'},{title:'Popular Reviews',slug:'reviews-comparisons'},{title:'Computers & Laptops',slug:'computers-laptops'}].map(s=><section className="coverage-section" key={s.slug}><SectionHeading title={s.title} slug={s.slug}/>{data.articles.some(a=>a.category_id===data.categories.find(c=>c.slug===s.slug)?.id)?<div className="mt-6"><ArticleList articles={data.articles.filter(a=>a.category_id===data.categories.find(c=>c.slug===s.slug)?.id).slice(0,2)} categories={data.categories}/></div>:<EmptyState compact title="Fresh insights, coming soon." description="A closer look at the technology shaping tomorrow."/>}</section>)}</div></div><aside className="home-sidebar"><h2 className="sidebar-heading"><Flame/>Trending now</h2>{data.highlights.filter(a=>a.trending).length?<div className="space-y-4 py-5">{data.highlights.filter(a=>a.trending).map(a=><Link key={a.id} className="block font-display text-sm" to="/article/$slug" params={{slug:a.slug}}>{a.title}</Link>)}</div>:<div className="sidebar-empty"><TrendingUp/><p>The stories everyone will be<br/>talking about. Coming soon.</p></div>}<div className="sidebar-categories"><h2 className="sidebar-heading"><Layers/>Explore categories</h2>{categoryInfo.map(c=><Link key={c.slug} to={categoryPath(c.slug)} search={{page:1}}><CategoryIcon slug={c.slug}/><span>{c.name}</span><span><ChevronRight className="size-3"/></span></Link>)}</div><Advertisement settings={data.settings} placement="sidebar"/><div className="border-t border-border pt-5"><span className="eyebrow">INDEPENDENT. CURIOUS. CONNECTED.</span><p className="mt-3 text-[11px] leading-6 text-muted-foreground">Technology moves fast.<br/>We're here to make sense of it.</p><Link to="/about" className="mt-3 inline-flex items-center gap-2 text-[10px] text-primary">Meet New Digital World <ArrowRight className="size-3"/></Link></div></aside></div></div></Shell>;}
