@@ -1,8 +1,12 @@
 # New Digital World
-- [ ] Establish brand system and premium empty-state publication.
-- [ ] Connect Cloud, profiles, separate roles, protected database and image storage.
-- [ ] Build categories, search, article reading, contact and legal pages.
-- [ ] Build private admin, article editor, category/comment/message/account/settings management.
-- [ ] Add public commenting accounts, replies, sharing and SEO.
-- [ ] Validate publishing, contact, comments, images, access permissions and mobile/desktop.
-- [ ] Document deployment and any external setup requirements.
+- [x] Establish brand system and premium empty-state publication.
+- [x] Connect Cloud, profiles, separate roles, protected database and image storage.
+- [x] Build categories, search, article reading, contact and legal pages.
+- [x] Build private admin, article editor, category/comment/message/account/settings management.
+- [x] Add public commenting accounts, replies, sharing and SEO.
+- [x] Validate publishing, contact, comments, images, access permissions and mobile/desktop; remove all test content.
+- [x] Document deployment and external setup requirements.
+- [ ] Activate the owner's initial admin account — requires owner signup and email confirmation.
+- [ ] Verify invitation/recovery email round trips — requires access to the recipient mailbox.
+- [ ] Deploy to Netlify and check subdomain availability — requires external hosting access and independently provisioned server credentials; managed Cloud credentials are not exportable.
+- [ ] Activate approved AdSense — requires approval, publisher/slot values, and applicable consent compliance review.
